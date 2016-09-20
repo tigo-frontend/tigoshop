@@ -1,4 +1,3 @@
-
 angular.element(document).ready(function(){
     var app  = angular.module("ngApp",["ui.router","ngResource"]);
         app.config(function($stateProvider, $urlRouterProvider, $locationProvider){

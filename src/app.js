@@ -1,17 +1,19 @@
-webpackJsonp([0,3],[
-/* 0 */
+webpackJsonp([1,2],{
+
+/***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(1);
+	module.exports = __webpack_require__(5);
 
 
 /***/ },
-/* 1 */
+
+/***/ 5:
 /***/ function(module, exports) {
 
 	
 	angular.element(document).ready(function(){
-	    var app  = angular.module("ngApp",["ui.router","ngResource","mallComponent"]);
+	    var app  = angular.module("ngApp",["ui.router","ngResource"]);
 	        app.config(function($stateProvider, $urlRouterProvider, $locationProvider){
 
 	          $urlRouterProvider.otherwise("/index");
@@ -27,4 +29,5 @@ webpackJsonp([0,3],[
 
 
 /***/ }
-]);
+
+});

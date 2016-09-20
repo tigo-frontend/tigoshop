@@ -14,8 +14,8 @@ module.exports = {
             __dirname+'/build/lib/angular/angular-resource.js',
             __dirname+'/build/lib/angular/angular-ui-router.js'
         ],
-        "js/app":[__dirname+'/build/angular-app.js'],   //项目ng入口配置
-        "js/component":[__dirname+'/build/components/mall.js']   //组件化
+        "src/app":[__dirname+'/build/angular-app.js']   //项目ng入口配置
+        //"js/component":[__dirname+'/build/components/mall.js']   //组件化
     },
     //入口文件输出配置
     output: {
