@@ -1,0 +1,209 @@
+$maxw:750px;
+$minw:320px;
+$red:#e41735;
+html{
+    font-size: (10/16*100)+%;
+    width:100%;
+    height:100%;
+    overflow: hidden;
+    *{
+        box-sizing: border-box;
+    }
+}
+body{
+    width:100%;
+    height:100%;
+    overflow: auto;
+    font:{
+        size:1.4rem;
+        family:"Microsoft Yahei";
+        weight:normal;
+    };
+}
+a{
+    &,&:hover,&:link{
+        text-decoration: none;
+        color: #333;
+    }
+}
+@mixin position($pos:relative){
+    position: $pos;
+}
+@mixin flex($lay:flex-start){
+    display:-webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content:$lay;
+    justify-content: $lay;
+}
+@mixin allRadius($v:0){
+    -webkit-border-radius:$v;
+       -moz-border-radius:$v;
+        -ms-border-radius:$v;
+            border-radius:$v;
+}
+@mixin magPad($v:0) {
+    margin: $v;
+    padding: $v;
+}
+
+/*!
+公共样式
+*/
+.flex-between{
+    @include flex(space-between);
+}
+.text-center{
+    text-align: center;
+}
+.color-red{
+    color:$red;
+}
+.list-none{
+    list-style: none;
+    @include magPad;
+    li{
+        @include magPad;
+    }
+}
+
+/*!
+主要样式
+*/
+.wrapper{
+    max-width:$maxw;
+    min-width:$minw;
+    margin: auto;
+    background: #f3f3f3;
+    @include position;
+
+    hr.line{
+        @include magPad;
+        width: auto;
+        border: none;
+        height: 1px;
+        background: #e8e8e8;
+    }
+    .padd{
+        padding: 0 1.2rem;
+        background: #fff;
+    }
+    .hi16{
+        height: 1.6rem;
+    }
+    .top-bg{
+        background: url("../img/mem-bg01.jpg") no-repeat;
+        background-size: cover;
+        height: 15rem;
+        width: 100%;
+        @include position;
+
+        .top-nav{
+            @include position(absolute);
+            background:#fff;
+            border-bottom:solid 1px #dcdcdc;
+            padding:1.2rem;
+            width: 100%;
+            bottom:0;
+            left:0;
+
+            .touxiang{
+                width: 6rem;
+                height: 6rem;
+                top:-4rem;
+                @include position(absolute);
+                @include allRadius(50%);
+            }
+        }
+    }
+
+    .box-menu{
+        background: #fff;
+        padding:1.2rem;
+        ul{
+            overflow: hidden;
+            li{
+                width: 30%;
+                margin-right: -1px;
+                @include position;
+                p{
+                    @include magPad;
+                }
+                &:before{
+                    display: block;
+                    content:'';
+                    border-right:solid 1px #dcdcdc;
+                    @include position(absolute);
+                    right: 0;
+                    top:0;
+                    height: 100%;
+                }
+            }
+        }
+    }
+
+    .list-panel{
+        padding:1rem;
+        background: #fff;
+        border-bottom: solid 1px #d8d8d8;
+        //计算用户菜单栏背景图标位置函数
+        @function bgDistance($v){
+            @return (0.5rem-4.3rem*$v);
+        }
+        ul li{
+            line-height:4rem;
+            font-size: 1.6rem;
+            @include position;
+            @each $word,$distance in (money:bgDistance(0),order:bgDistance(1),quan:bgDistance(2),
+                                      pinlun:bgDistance(3),
+                                      sc:bgDistance(4),
+                                      dzgl:bgDistance(5),
+                                      jifen:bgDistance(6),
+                                      liuyan:bgDistance(7),
+                                      shfw:bgDistance(8),
+                                      loginout:bgDistance(9)){
+                &.icon-#{$word}{
+                    background: url(../img/member/user.png) 0 $distance no-repeat;
+                    background-size: 3rem;
+                    padding-left: 4.2rem;
+                }
+            }
+            .right-icon{
+                background: url(../img/member/arrow_right.png) right top no-repeat;
+                background-size: contain;
+                font-size: 1.2rem;
+                line-height: 2rem;
+                margin-top: 1rem;
+                padding-right: 2.2rem;
+                float: right;
+            }
+
+        }
+    }
+
+    .footer{
+        padding: 2rem 1.2rem;
+        text-align: center;
+        .foot-nav{
+            @include magPad;
+            display: inline-block;
+            overflow: hidden;
+            li{
+                display: inline-block;
+                padding:0 1rem;
+                @include position;
+                &:after{
+                    display: block;
+                    content: ' ';
+                    height: 100%;
+                    @include position(absolute);
+                    top:0;
+                    right: 0;
+                    width: 1px;
+                    background: #c1c1c1;
+                    margin-right: -1px;
+                }
+            }
+        }
+    }
+}

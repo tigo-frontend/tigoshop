@@ -1,17 +1,76 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="myApp">
   <head>
     <meta charset="utf-8">
     <title>测试页面</title>
-    <script src="../lib/common.js" charset="utf-8"></script>
-    <script src="../lib/angular-lib.js" charset="utf-8"></script>
-    <script src="../src/test-app.js" charset="utf-8"></script>
+    <script src="../build/common.js" charset="utf-8"></script>
+    <script src="../build/angular-lib.js" charset="utf-8"></script>
   </head>
   <body>
-      <top-nav></top-nav>
-        <section ui-view>
-
-        </section>
-
+      <hero-list></hero-list>
   </body>
+  <script>
+    angular.module("myApp",[])
+    .component("heroList",{
+        template:`
+        <b>Heroes</b><br>
+<hero-detail ng-repeat="hero in $ctrl.list" hero="hero" on-delete="$ctrl.deleteHero(hero)" on-update="$ctrl.updateHero(hero, prop, value)"></hero-detail>
+        `,
+        controller:function($scope, $element, $attrs) {
+                  var ctrl = this;
+
+                  // This would be loaded by $http etc.
+                  ctrl.list = [
+                    {
+                      name: 'Superman',
+                      location: ''
+                    },
+                    {
+                      name: 'Batman',
+                      location: 'Wayne Manor'
+                    }
+                  ];
+
+                  ctrl.updateHero = function(hero, prop, value) {
+                    hero[prop] = value;
+                  };
+
+                  ctrl.deleteHero = function(hero) {
+                    var idx = ctrl.list.indexOf(hero);
+                    if (idx >= 0) {
+                      ctrl.list.splice(idx, 1);
+                    }
+                  };
+
+        }
+    })
+
+
+    .component('heroDetail', {
+      template: `
+      <hr>
+<div>
+  Name: {{$ctrl.hero.name}}<br>
+  Location: <editable-field field-value="$ctrl.hero.location" field-type="text" on-update="$ctrl.update('location', value)"></editable-field><br>
+  <button ng-click="$ctrl.delete()">Delete</button>
+</div>
+      `,
+      controller: function() {
+        var ctrl = this;
+
+        ctrl.delete = function() {
+          ctrl.onDelete({hero: ctrl.hero});
+        };
+
+        ctrl.update = function(prop, value) {
+          ctrl.onUpdate({hero: ctrl.hero, prop: prop, value: value});
+        };
+     },
+      bindings: {
+        hero: '<',
+        onDelete: '&',
+        onUpdate: '&'
+      }
+    });
+  </script>
 </html>
