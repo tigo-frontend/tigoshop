@@ -17,12 +17,15 @@ module.exports = {
             __dirname+'/src/index.js',
             __dirname+'/src/lib/angular/angular.js',
             __dirname+'/src/lib/angular/angular-resource.js',
-            __dirname+'/src/lib/angular/angular-ui-router.js'
+            __dirname+'/src/lib/angular/angular-ui-router.js',
+            __dirname+'/src/lib/angular/angular-ui-state-event.js'
         ],
         //项目ng入口配置
         "build/app":[
             __dirname+'/src/app.js',
-            __dirname+'/src/js/member/component.js'
+            __dirname+'/src/js/member/component.js',
+            __dirname+'/src/js/member/walletComponent.js',
+            __dirname+'/src/js/member/orderComponent.js'
         ]
         //"js/component":[__dirname+'/build/components/mall.js']   //组件化
     },
@@ -35,8 +38,9 @@ module.exports = {
         noParse:[/angular/],//不解析此文件
         loaders:[
             {test:/\.css$/,loader:'style!css'},
+            {test:/\.js$/,loader:'babel?compact=false',query:{presets: ['es2015']}},
             {test:/\.scss$/,loader:ExtractTextPlugin.extract('style', 'css!sass')},//'style!css!sass' },
-            {test:/\.(png|jpg)/,loader:'url?limit=30000&name=../[path][name].[ext]'} //不能大于20K图片
+            {test:/\.(png|jpg)/,loader:'url?limit=20000&name=../[path][name].[ext]'} //不能大于20K图片
         ]
     },
     resolve: {

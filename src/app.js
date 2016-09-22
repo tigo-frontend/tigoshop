@@ -7,14 +7,37 @@ angular.element(document).ready(function(){
         document.documentElement.style.fontSize=(100*1.25 * (h/initH)) +"%";
         document.body.style.height = h + "px";
     }
-    var app  = angular.module("ngApp",["ui.router","ngResource","memberComponent"]);
+    var app  = angular.module("ngApp",["ui.router","ui.router.state.events","ngResource","memberComponent"]);
+        app.run(function($rootScope){
+            $rootScope.$on("$stateChangeStart",function(){
+                console.log("路由变化33323");
+            })
+        })
         app.config(function($stateProvider, $urlRouterProvider, $locationProvider){
 
-          $urlRouterProvider.otherwise("/index");
+          $urlRouterProvider.otherwise("/member");
           $stateProvider
-          .state("index",{
-              url:"/index",
-              template:' '
+          //会员中心首页
+          .state({
+              name:"member",
+              url:"/member",
+              template:`
+                <section ui-view>
+                    <member-index></member-index>
+                </section>
+              `
+              //component:'memberIndex'
+          })
+          //会员中心订单页
+          .state("member.order",{
+              url:"/order",
+              component:'memberOrder'
+          })
+          //会员中心我的钱包
+          .state({
+              name:"member.wallet",
+              url:'/wallet',
+              component:'memberWallet'
           })
 
       })

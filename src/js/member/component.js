@@ -1,8 +1,19 @@
 
-angular.module("memberComponent",[])
-.component("wrapper",{
+angular.module("memberComponent",["walletComponent","orderComponent"])
+//头部公共组件
+.component("headerTpl",{
     template:`
-    <div class="wrapper">
+        <div class="header"></div>
+        <header class="header container-fill">
+            <div class="pull-left"><span icon-arrow-left></span></div>
+            <div class="pull-right"><span icon-dot-more></span></div>
+            <h1>我的钱包</h1>
+        </header>
+    `
+})
+.component("memberIndex",{
+    template:`
+    <div class="member-wrapper">
         <top-tpl></top-tpl>
         <div class="hi16"></div>
         <box-menu></box-menu>
@@ -11,14 +22,15 @@ angular.module("memberComponent",[])
             <div  class="hi16"></div>
         </div>
         <footer></footer>
-        <section ui-view></section>
     </div>
     `,
     controller:function($scope, $element, $attrs){
         this.panels = [
-            [{"title":"我的钱包",icon:"icon-money",stxt:"查看我的钱包"}],
             [
-                {"title":"全部订单",icon:"icon-order",stxt:"查看订单"},
+                {"title":"我的钱包",icon:"icon-money",stxt:"查看我的钱包",href:"member.wallet"}
+            ],
+            [
+                {"title":"全部订单",icon:"icon-order",stxt:"查看订单",href:"member.order"},
                 {"title":"我的优惠券",icon:"icon-quan"},
                 {"title":"我的评价",icon:"icon-pinlun",stxt:"查看评价"},
                 {"title":"我的收藏",icon:"icon-sc"},
@@ -62,21 +74,19 @@ angular.module("memberComponent",[])
         </div>
         <div class="padd"><hr class="line"/></div>
     `
-
 })
 .component("panel",{
     template:`
         <div class="list-panel">
             <ul class="list-none">
-                <li class="{{v.icon}}" ng-repeat="v in $ctrl.menus">{{v.title}}  <div class="right-icon">{{v.stxt}}</div><hr class="line"/></li>
+                <li class="{{v.icon}}" ng-repeat="v in $ctrl.menus" ><a style="display:block;" ui-sref="{{v['href']?v['href']:'#'}}" ui-sref-active="active">{{v.title}}  <div class="right-icon">{{v.stxt}}</div><hr class="line"/></a></li>
             </ul>
         </div>
     `,
     bindings:{
         menus:"<"
     },
-    controller:function(){
-        console.log(this);
+    controller:function($scope){
     }
 })
 .component('footer',{
