@@ -15,9 +15,9 @@ module.exports = {
         //项目类库
         "build/angular-lib" : [
             __dirname+'/src/index.js',
-            __dirname+'/src/lib/angular/angular.js',
-            __dirname+'/src/lib/angular/angular-resource.js',
-            __dirname+'/src/lib/angular/angular-ui-router.js',
+            __dirname+'/src/lib/angular/angular.min.js',
+            __dirname+'/src/lib/angular/angular-resource.min.js',
+            __dirname+'/src/lib/angular/angular-ui-router.min.js',
             __dirname+'/src/lib/angular/angular-ui-state-event.js'
         ],
         //项目ng入口配置
@@ -25,7 +25,9 @@ module.exports = {
             __dirname+'/src/app.js',
             __dirname+'/src/js/member/component.js',
             __dirname+'/src/js/member/walletComponent.js',
-            __dirname+'/src/js/member/orderComponent.js'
+            __dirname+'/src/js/member/orderComponent.js',
+            __dirname+'/src/js/member/couponComponent.js',
+            __dirname+'/src/js/member/commentComponent.js',
         ]
         //"js/component":[__dirname+'/build/components/mall.js']   //组件化
     },
@@ -38,7 +40,7 @@ module.exports = {
         noParse:[/angular/],//不解析此文件
         loaders:[
             {test:/\.css$/,loader:'style!css'},
-            {test:/\.js$/,loader:'babel?compact=false',query:{presets: ['es2015']}},
+            {test:/\.js$/,loader:'babel',query:{presets: ['es2015'],compact: false}},
             {test:/\.scss$/,loader:ExtractTextPlugin.extract('style', 'css!sass')},//'style!css!sass' },
             {test:/\.(png|jpg)/,loader:'url?limit=20000&name=../[path][name].[ext]'} //不能大于20K图片
         ]
@@ -50,9 +52,9 @@ module.exports = {
         extensions: ['', '.js','.jsx', '.json', '.scss'],
         //模块别名定义，方便后续直接引用别名，无须多写长长的地址
         alias: {
-            AppStore : 'js/stores/AppStores.js',//后续直接 require('AppStore') 即可
-            ActionType : 'js/actions/ActionType.js',
-            AppAction : 'js/actions/AppAction.js'
+            CouponComp : __dirname+'/src/js/member/couponComponent.js',//后续直接 require('AppStore') 即可
+            CommentComp : __dirname+'/src/js/member/commentComponent.js',
+            AppAngular : __dirname+'/src/lib/angular/angular.min.js',
         }
     }
 };

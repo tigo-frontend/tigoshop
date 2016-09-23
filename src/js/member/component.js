@@ -1,15 +1,49 @@
 
-angular.module("memberComponent",["walletComponent","orderComponent"])
+angular.module("memberComponent",["walletComponent","orderComponent","couponComponent","commentComponent"])
 //头部公共组件
 .component("headerTpl",{
     template:`
         <div class="header"></div>
         <header class="header container-fill">
-            <div class="pull-left"><span icon-arrow-left></span></div>
+            <div class="pull-left"><span icon-arrow-left onclick="window.history.go(-1)"></span></div>
             <div class="pull-right"><span icon-dot-more></span></div>
-            <h1>我的钱包</h1>
+            <h1>{{$ctrl.title}}</h1>
         </header>
-    `
+    `,
+    bindings:{
+        title:'@'   //< 属性变量绑定  &属性绑定函数  @绑定字符串
+    }
+})
+//经典tab选项   基于component 组件化开发
+.component("tabsTpl",{
+    transclude:true,
+    template:`
+    <div class="container-fill order-nav">
+    <ul class="list-none flex-between">
+        <li ng-repeat="v in $ctrl.list" ng-class="v.active" ng-click="$ctrl.choose($index)" >{{v.title}}</li>
+    </ul>
+    </div>
+
+    <div class="tabsContentsBox"></div>
+    `,
+    bindings:{
+        list: "<",
+        component:"@",
+    },
+    controller:function($scope,$compile,$element){
+        $element[0].querySelector(".tabsContentsBox").innerHTML = `
+            <${this.component} on-choose='gobj'></${this.component}>
+        `;
+        $compile(angular.element($element[0].querySelector(".tabsContentsBox")).contents())($scope);
+
+        this.choose = (k) => {
+            $scope.gobj =  this.list[k];
+            for(let kk in this.list){
+                this.list[kk]["active"] = "";
+            }
+            this.list[k]["active"] = "active";
+        }
+    }
 })
 .component("memberIndex",{
     template:`
@@ -31,8 +65,8 @@ angular.module("memberComponent",["walletComponent","orderComponent"])
             ],
             [
                 {"title":"全部订单",icon:"icon-order",stxt:"查看订单",href:"member.order"},
-                {"title":"我的优惠券",icon:"icon-quan"},
-                {"title":"我的评价",icon:"icon-pinlun",stxt:"查看评价"},
+                {"title":"我的优惠券",icon:"icon-quan",href:"member.coupon"},
+                {"title":"我的评价",icon:"icon-pinlun",stxt:"查看评价",href:"member.comment"},
                 {"title":"我的收藏",icon:"icon-sc"},
             ],
             [

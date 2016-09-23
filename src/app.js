@@ -39,6 +39,17 @@ angular.element(document).ready(function(){
               url:'/wallet',
               component:'memberWallet'
           })
+          //会员中心—我的优惠券
+          .state({
+              name:"member.coupon",
+              url:'/coupon',
+              component:'memberCoupon' ,
+          })
+          .state({
+              name:'member.comment',
+              url:'comment',
+              component:'memberComment',
+          })
 
       })
       angular.bootstrap(document,['ngApp']);

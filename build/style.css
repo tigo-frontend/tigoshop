@@ -55,7 +55,7 @@ a, a:hover, a:link {
 .clearfix {
   width: 100%;
   height: 1px; }
-  .clearfix:before, .clearfix:after {
+  .clearfix:after, .clearfix:before {
     content: " ";
     display: table; }
   .clearfix:after {
@@ -242,13 +242,41 @@ span[icon-dot-more] {
         margin-top: 1rem;
         padding-right: 2.2rem;
         float: right; }
-  .member-wrapper .wallet-nav {
+  .member-wrapper .wal-detail-box {
+    padding: 1rem;
+    background: #fff; }
+    .member-wrapper .wal-detail-box .wal-tree {
+      border-left: 1px solid #bbb;
+      padding: 1rem; }
+      .member-wrapper .wal-detail-box .wal-tree li {
+        padding: 1rem 0;
+        border-bottom: 1px dashed #ccc;
+        position: relative; }
+        .member-wrapper .wal-detail-box .wal-tree li p {
+          margin: 0;
+          padding: .2rem .6rem; }
+        .member-wrapper .wal-detail-box .wal-tree li .wal-tree-dot {
+          position: absolute;
+          width: 1rem;
+          height: 1rem;
+          -webkit-border-radius: 50%;
+          -moz-border-radius: 50%;
+          -ms-border-radius: 50%;
+          border-radius: 50%;
+          left: -1.5rem;
+          top: 50%;
+          -webkit-transform: translate3d(0, -50%, 0);
+          -moz-transform: translate3d(0, -50%, 0);
+          -ms-transform: translate3d(0, -50%, 0);
+          transform: translate3d(0, -50%, 0);
+          background: #666; }
+  .member-wrapper .order-nav {
     padding: 0 2rem;
     border: solid 1px #ddd;
     background: #fff; }
-    .member-wrapper .wallet-nav li {
-      padding: .8rem 1rem; }
-      .member-wrapper .wallet-nav li.active {
+    .member-wrapper .order-nav li {
+      padding: 0.8rem 1rem; }
+      .member-wrapper .order-nav li.active {
         border-bottom: solid 1px #e41735; }
   .member-wrapper .order-lists {
     background: #fff;
@@ -280,7 +308,8 @@ span[icon-dot-more] {
           width: 15%; }
     .member-wrapper .order-lists .o-total {
       border-bottom: 1px solid #ddd; }
-    .member-wrapper .order-lists .o-total, .member-wrapper .order-lists .o-btn {
+    .member-wrapper .order-lists .o-btn,
+    .member-wrapper .order-lists .o-total {
       padding: 1rem 0; }
   .member-wrapper .footer {
     padding: 2rem 1.2rem;
