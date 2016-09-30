@@ -3,7 +3,7 @@ angular.module("walletComponent",[])
     template:`
         <div class="member-wrapper">
         <header-tpl title="资金管理"></header-tpl>
-        <div style="padding:2rem 0;border-bottom:solid 1px #ccc" class="text-center">账户余额￥888.00元</div>
+        <div class="text-center user-balance">账户余额<span class="value">￥888.00元</span></div>
         <wallet-detail></wallet-detail>
         </div>
     `

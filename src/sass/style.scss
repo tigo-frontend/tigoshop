@@ -72,8 +72,24 @@ a {
     transform: translate3d($x,$y,$z);
 }
 /*!
-公共样式
+公共样式---定制版
 */
+$bgRed : #ff0000;
+button,a{
+    &.btn-submit{
+        background-color: #da2525;
+        color:#fff;
+        height: 3.6rem;
+        line-height:3.6rem;
+        text-align: center;
+        border:none;
+        @include allRadius(.5rem);
+        &.block{
+            width: 100%;
+            display: block;
+        }
+    }
+}
 .flex-between {
     @include flex(space-between);
 }
@@ -121,19 +137,58 @@ a {
         clear: both;
     }
 }
+
+//表单输入样式 一
+.form-group{
+    margin-bottom: 2.6rem;
+    position: relative;
+    .caption{
+        height: 3.2rem;
+        line-height: 3.2rem;
+        float: left;
+        -webkit-flex-shrink:0;
+        flex-shrink:0;
+    }
+    .form-input{
+        width: 100%;
+        display: inline-block;
+        -webkit-flex-shrink:1;
+        flex-shrink:1;
+        input,textarea,select{
+            border:1px solid #c1c1c1;
+            padding:.3rem;
+            @include allRadius(.5rem);
+            width: 100%;
+            height: 3.2rem;
+            &.none{
+                border: none;
+                background: rgba(0,0,0,0);
+                background: transparent;
+            }
+            &:focus{
+                outline: none;
+            }
+        }
+    }
+}
+
 /*!
 icon 图标样式
 */
-@each $word,$x,$y in (arrow-left,0px,0px), (dot-more,0,(-7.4rem/2)) {
+@each $word,$x,$y in (arrow-left,0px,0px), (dot-more,0,(-7.4rem/2.4)) {
     span[icon-#{$word}] {
-        background: url("../img/member/icon-lib.png") no-repeat;
-        background-position: $x $y;
-        background-size: $iconImgW/2 $iconImgH/2;
+        background: url("../font/home.svg") no-repeat;
+        //background: url("../img/member/icon-lib.png") no-repeat;
+        background-position: 0 0;
+        background-size: cover;
         display: inline-block;
         display: table;
-        width: (6.4rem/2);
-        height: (6.4rem/2);
+        width: (6.4rem/2.4);
+        height: (6.4rem/2.4);
         //@include transScale(.5,left);
+        [svg]{
+            fill:red;
+        }
     }
 }
 /*!
@@ -146,7 +201,6 @@ icon 图标样式
     max-width: $maxw;
     min-width: $minw;
     margin: auto;
-    background: #f3f3f3;
     @include position;
 
     hr.line {
@@ -165,6 +219,111 @@ icon 图标样式
     .hi16 {
         height: 1.6rem;
     }
+    .hi10 {
+        height: 1.0rem;
+    }
+
+    /*!
+    隐藏页边导航
+    */
+    .slide-nav{
+        position: absolute;
+        top:3rem;
+        right: 0;
+        background: #888;
+        li{
+            padding:.6rem 2.6rem;
+            white-space:nowrap;
+            border-bottom: 1px solid #f9f9f9;
+            color:#fff;
+            &:last-child{
+                border:none;
+            }
+        }
+    }
+
+    /*!
+    内页导航样式
+    */
+    .order-nav {
+        padding: 0 2rem;
+        border: solid 1px #ddd;
+        background: #fff;
+
+        li {
+            padding: 0.8rem 1rem;
+
+            &.active {
+                border-bottom: solid 2px $red;
+                margin-bottom:-1px;
+            }
+        }
+    }
+    /*!
+    会员登陆页面
+    */
+    .login-form{
+        background: #fff;
+        padding:2.6rem 1.6rem 1rem;
+        .form-group .caption{
+            width: 9rem;
+        }
+        .qita{
+            color: #888;
+            a{
+                color: #388ce4;
+                &:hover{
+                    color:#ff0000;
+                }
+            }
+        }
+    }
+
+    /*!
+    会员中心注册页面样式
+    */
+    .regist-form{
+        padding:2rem 1.2rem;
+        background: #efefef;
+        .form-group {
+            margin: 0 -2rem 1.6rem;
+            padding: 0 2rem;
+            background: #ffffff;
+            .caption{
+                width: 8.5rem;
+            }
+        }
+    }
+
+    /*!
+    会员中心 - 会员地址页面样式
+    */
+    .address-wrap{
+        .address-list{
+            padding:2rem 6rem;
+            position: relative;
+            dt{
+                position: relative;
+                span{
+                    position: absolute;
+                    right: 0;
+                }
+            }
+            .edit{
+                position: absolute;
+            }
+        }
+        .add-address-form{
+            padding: 1.6rem 1rem;
+            .form-group{
+                border-bottom:1px solid #ccc;
+                .caption{
+                    width: 8rem;
+                }
+            }
+        }
+    }
+
     /*!
     会员中心公共头
     */
@@ -174,7 +333,9 @@ icon 图标样式
             width: 100%;
             top: 0;
             left: 0;
-            border: solid 1px #ccc;
+            background: #f3f3f3;
+            border-top: solid 1px #ccc;
+            border-bottom: solid 1px #ccc;
             @include position(fixed);
             @at-root .header {
                 height: 5rem;
@@ -191,6 +352,8 @@ icon 图标样式
             & > h1 {
                 @include magPad;
                 font-size: 1.6rem;
+                font-weight: normal;
+                letter-spacing: .2rem;
                 top: 50%;
                 left: 50%;
                 @include position(absolute);
@@ -274,6 +437,7 @@ icon 图标样式
         }
 
         ul li {
+            &:last-child hr{display: none;}
             line-height: 4rem;
             font-size: 1.6rem;
             @include position;
@@ -299,6 +463,15 @@ icon 图标样式
     /*!
     样式---我的钱包
     */
+    .user-balance{
+        padding:2rem 0;
+        border-bottom:solid 1px #ccc;
+        font-size: 1.4rem;
+        color:#ff0000;
+        .value{
+            font-size: 2rem;
+        }
+    }
     .wal-detail-box{
         padding: 1rem;
         background: #fff;
@@ -330,19 +503,7 @@ icon 图标样式
     /*!
     样式 ---我的订单
     */
-    .order-nav {
-        padding: 0 2rem;
-        border: solid 1px #ddd;
-        background: #fff;
 
-        li {
-            padding: 0.8rem 1rem;
-
-            &.active {
-                border-bottom: solid 1px $red;
-            }
-        }
-    }
     .order-lists {
         background: #fff;
         border: solid 1px #ddd;
@@ -374,22 +535,100 @@ icon 图标样式
                 @include magPad;
 
                 &.center {
-                    width: 60%;
+                    width: 55%;
                     margin: 0 1.2rem;
                 }
 
                 &.price {
-                    width: 15%;
+                    width: 20%;
                 }
             }
         }
 
         .o-total {
             border-bottom: 1px solid #ddd;
+            font-size: 1.4rem;
+            .red{
+                font-size: 1.8rem;
+                color: #ff0000;
+            }
         }
 
         .o-btn,
         .o-total {
+            padding: 1rem 0;
+        }
+        .o-btn button{
+            background: #fff;
+            padding:.5rem 1rem;
+            @include allRadius(.5rem);
+            &.btn-cancel{
+                border:1px solid #bbb;
+            }
+            &.btn-pay{
+                margin-left: 1rem;
+                color: #fff;
+                border:none;
+                background: #ff0000;
+            }
+        }
+    }
+
+    /*!
+    样式 --- 我的评价
+    */
+    .pj-list{
+        background-color: #ffffff;
+        border-bottom: 1rem solid #f2f2f2;
+        padding: 0 1rem 1.5rem 1rem;
+        h2{
+            @include magPad;
+            padding:1.2rem 0;
+            font-size: 1.2rem;
+            font-weight:normal;
+            color:#AAA;
+        }
+        dl,dd,dt{
+            @include magPad;
+        }
+        .pj-img{
+            width: 20%;
+            img{
+                width:100%;
+            }
+        }
+        .pj-tit{
+            width:63%;
+            padding: 0 .6rem;
+            p{
+                @include magPad;
+                margin-bottom: .6rem ;
+            }
+        }
+        .pj-btn{
+            width: 17%;
+            position: relative;
+            button{
+                @include allRadius(.3rem);
+                @include translate(0,-50%);
+                position: absolute;
+                top:50%;
+                white-space: nowrap;
+                right:0;
+                padding: .6rem;
+                font-size: 1.2rem;
+                background: #fff;
+                border: 1px solid #ddd;
+            }
+        }
+    }
+
+    /*!
+    我的积分
+    */
+    .score-list{
+        li{
+            border-bottom:.1rem solid #ccc;
             padding: 1rem 0;
         }
     }
@@ -397,7 +636,11 @@ icon 图标样式
     .footer {
         padding: 2rem 1.2rem;
         text-align: center;
-
+        h6{
+            font-size: 1rem;
+            margin:1rem 0;
+            padding:0;
+        }
         .foot-nav {
             @include magPad;
             display: inline-block;

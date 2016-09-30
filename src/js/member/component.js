@@ -1,17 +1,47 @@
-
-angular.module("memberComponent",["walletComponent","orderComponent","couponComponent","commentComponent"])
+require("./loginComponent.js");
+require("./addressComponent.js");
+require("./scoreComponent.js")
+angular.module("memberComponent",["walletComponent","orderComponent","couponComponent","commentComponent","loginComponent","addressComponent","scoreComponent"])
+//svg组件化图标
+.component("spanIcon",{
+    bindings:{
+        class:"@",
+        icon:"@",
+        style:"@",
+    },
+    template:`
+        <svg style="{{$ctrl.style}};display:flex;display:table;" class="{{$ctrl.class}}" ><use xlink:href="{{$ctrl.iconName}}" /></svg>
+    `,
+    controller:function(){
+        this.iconName = "#icon-"+this.icon;
+    }
+})
 //头部公共组件
 .component("headerTpl",{
     template:`
         <div class="header"></div>
         <header class="header container-fill">
-            <div class="pull-left"><span icon-arrow-left onclick="window.history.go(-1)"></span></div>
-            <div class="pull-right"><span icon-dot-more></span></div>
+            <div class="pull-left" onclick="window.history.go(-1)"><span-icon style="width:2.8rem;height:2.8rem;color:#333;" icon="arrow-left"></span-icon></div>
+            <div class="pull-right"><span-icon style="width:2.8rem;height:2.8rem;color:#333;" icon="dot-more" ng-click="$ctrl.showNav()"></span-icon>
+                <ul class="slide-nav list-none" ng-show="$ctrl.isNavshow">
+                    <li onclick="location.href='/'"><span icon-home></span>首页</li>
+                    <li onclick="location.href='/'"><span icon-home></span>分类</li>
+                    <li onclick="location.href='/'"><span icon-home></span>购物车</li>
+                    <li onclick="location.href='/'"><span icon-home></span>我的</li>
+                </ul>
+            </div>
             <h1>{{$ctrl.title}}</h1>
+
         </header>
     `,
     bindings:{
         title:'@'   //< 属性变量绑定  &属性绑定函数  @绑定字符串
+    },
+    controller:function(){
+        this.isNavshow = false;
+        this.showNav = function(){
+            this.isNavshow  = !this.isNavshow;
+        }
     }
 })
 //经典tab选项   基于component 组件化开发
@@ -45,9 +75,10 @@ angular.module("memberComponent",["walletComponent","orderComponent","couponComp
         }
     }
 })
+//会员中心 --首页
 .component("memberIndex",{
     template:`
-    <div class="member-wrapper">
+    <div class="member-wrapper" style="background-color:#f2f2f2;">
         <top-tpl></top-tpl>
         <div class="hi16"></div>
         <box-menu></box-menu>
@@ -58,7 +89,7 @@ angular.module("memberComponent",["walletComponent","orderComponent","couponComp
         <footer></footer>
     </div>
     `,
-    controller:function($scope, $element, $attrs){
+    controller:["$apiRest",function($apiRest){
         this.panels = [
             [
                 {"title":"我的钱包",icon:"icon-money",stxt:"查看我的钱包",href:"member.wallet"}
@@ -67,19 +98,19 @@ angular.module("memberComponent",["walletComponent","orderComponent","couponComp
                 {"title":"全部订单",icon:"icon-order",stxt:"查看订单",href:"member.order"},
                 {"title":"我的优惠券",icon:"icon-quan",href:"member.coupon"},
                 {"title":"我的评价",icon:"icon-pinlun",stxt:"查看评价",href:"member.comment"},
-                {"title":"我的收藏",icon:"icon-sc"},
+                {"title":"我的收藏",icon:"icon-sc",href:"member.regist"},
             ],
             [
-                {"title":"地址管理",icon:"icon-dzgl"},
-                {"title":"我的积分",icon:"icon-jifen"},
+                {"title":"地址管理",icon:"icon-dzgl",href:"member.address"},
+                {"title":"我的积分",icon:"icon-jifen",href:"member.score"},
                 {"title":"我的留言",icon:"icon-liuyan"},
                 {"title":"售后服务",icon:"icon-shfw"}
             ],
             [
-                {"title":"注销登录",icon:"icon-loginout"}
+                {"title":"注销登录",icon:"icon-loginout",href:"member.loginout"}
             ]
         ]
-    },
+    }],
     bindings:{
     }
 })

@@ -42,7 +42,7 @@ module.exports = {
             {test:/\.css$/,loader:'style!css'},
             {test:/\.js$/,loader:'babel',query:{presets: ['es2015'],compact: false}},
             {test:/\.scss$/,loader:ExtractTextPlugin.extract('style', 'css!sass')},//'style!css!sass' },
-            {test:/\.(png|jpg)/,loader:'url?limit=20000&name=../[path][name].[ext]'} //不能大于20K图片
+            {test:/\.(png|jpg|svg)/,loader:'url?limit=20000&name=../[path][name].[ext]'} //不能大于20K图片
         ]
     },
     resolve: {

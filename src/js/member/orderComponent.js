@@ -11,7 +11,7 @@ angular.module("orderComponent",[])
     `,
     controller:function(){
         this.list = [
-            {title:"全部",id:0},
+            {title:"全部",id:0,active:"active"},
             {title:"待付款",id:1},
             {title:"待发货",id:2},
             {title:"待收货",id:3},
@@ -33,17 +33,17 @@ angular.module("orderComponent",[])
             <dl class="flex-between">
                 <dt><img src="../src/img/member/product.jpg" /></dt>
                 <dd class="center">小米旗舰店正品手机平板通用迷你充电宝 移动电源10000毫安大容量</dd>
-                <dd class="price">￥90元<br />2件</dd>
+                <dd class="price text-right">￥90元<br />2件</dd>
             </dl>
             <dl class="flex-between">
                 <dt><img src="../src/img/member/product.jpg" /></dt>
                 <dd class="center">小米旗舰店正品手机平板通用迷你充电宝 移动电源10000毫安大容量</dd>
                 <dd class="price">￥90元<br />2件</dd>
             </dl>
-            <div class="o-total text-right">支付888元</div>
+            <div class="o-total text-right">共2件商品：<span class="red">￥888元</span></div>
             <div class="o-btn text-right">
-                <button>取消订单</button>
-                <button>立即付款</button>
+                <button class="btn-cancel">取消订单</button>
+                <button class="btn-pay">立即付款</button>
             </div>
         </div>
     `,
